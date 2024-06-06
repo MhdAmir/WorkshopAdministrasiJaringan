@@ -1,0 +1,26 @@
+services:
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - 9100:9100
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
+  backend:
+    container_name: tokopeida-backend
+    build:
+      context: ./backend
+      target: final
+    ports:
+      - 80:80
+    user: "root"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@192.168.6.101:5432/tokopeida?sslmode=disable
+      - PORT=80
+      - JWT_KEY=dqu5dUcWkazVXcnAUU5pSBvftQQHDzWtHqWe6GICNlQ

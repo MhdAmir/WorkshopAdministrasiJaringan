@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s # Interval scraping setiap 15 detik
+  evaluation_interval: 15s # Interval evaluasi aturan setiap 15 detik
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["192.168.6.102:9090"]
+
+  - job_name: "node_exporter_101"
+    static_configs:
+      - targets: ["192.168.6.101:9100"]
+
+  - job_name: "node_exporter_102"
+    static_configs:
+      - targets: ["192.168.6.102:9100"]
+
+  - job_name: "node_exporter_103"
+    static_configs:
+      - targets: ["192.168.6.103:9100"]
+
+  - job_name: "node_exporter_104"
+    static_configs:
+      - targets: ["192.168.6.104:9100"]
